@@ -1,5 +1,23 @@
+
+// Create dictionary that determines winning choices (key beats value)
+const winnerLoserDict = {rock: "scissors", scissors: "paper", paper: "rock"};
+getComputerChoice();
+
 function getComputerChoice() {
     // Randomly returns either "rock", "paper" or "scissors"
+
+    // Get random number between 1 and 3
+    let randomNum = Math.floor(Math.random() * 3) + 1;
+    
+    // Loop through winnerLoserDict keys and keep track of an index
+    // Return key ("rock", "paper" or "scissors") when index is equal to randomNum
+    let index = 1
+    for (key in winnerLoserDict) {
+        if (index == randomNum) {
+            return key;
+        }
+        index++;
+    }
 }
 
 function getPlayerChoice() {
