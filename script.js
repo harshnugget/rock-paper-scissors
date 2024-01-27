@@ -28,13 +28,13 @@ function getPlayerChoice() {
         }
         playerChoice = prompt("Rock, Paper or Scissors?");
 
-        // Randomly assign player choice if option is null
+        // Randomly assign player choice if option is null (prompt is cancelled)
         if (playerChoice === null) {
             playerChoice = getComputerChoice();
+            break;
         }
-    
-        return playerChoice.toLowerCase();
     }
+    return playerChoice.toLowerCase();
 }
 
 function playRound(playerSelection, computerSelection) {
