@@ -39,24 +39,17 @@ function getPlayerChoice() {
 
 function playRound(playerSelection, computerSelection) {
     // Compare playerSelection to computerSelection
+    console.log(`Player: ${playerSelection} | Computer: ${computerSelection}`);
 
-    // if playerSelection is the same as computerSelection
-        // return "tie"
+    if (playerSelection == computerSelection) {
+        return "tie";
+    }
 
-    // if playerSelection is rock
-        // if computerSelection is scissors
-            // return "win"
-        // else return "lose"
-
-    // if playerSelection is scissors
-        // if computerSelection is paper
-            // return "win"
-        // else return "lose"
-
-    // if playerSelection is paper
-        // if computerSelection is rock
-            // return "win"
-        // else return "lose"
+    // Check if computer choice matches the key value of playerSelection (key beats value)
+    if (computerSelection == winnerLoserDict[playerSelection]) {
+        return "win";
+    }
+    return "lose"
 }
 
 function game() {
