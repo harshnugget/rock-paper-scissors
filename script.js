@@ -53,7 +53,31 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function game() {
-    // Loop playRound 5 times
-    // Use counters to track player scores
-    // Return winner with highest score when loop terminates
+    let result;
+    let playerScore = 0;
+    let computerScore = 0;
+    
+    // Replay rounds until a player reaches a score of 5
+    while (playerScore < 5 && computerScore < 5) {
+        result = playRound(getPlayerChoice(), getComputerChoice());
+        switch (result) {
+            case "win":
+                console.log("You won this round!");
+                playerScore++;
+                break;
+            case "lose":
+                console.log("You lose this round!");
+                computerScore++;
+                break;
+            case "tie":
+                console.log("It's a tie this round!");
+        }
+        console.log(`Player Score: ${playerScore} | Computer Score: ${computerScore}`);
+    }
+
+    if (playerScore > computerScore) {
+        return "YOU WIN!";
+    } else {
+        return "YOU LOSE!";
+    }
 }
