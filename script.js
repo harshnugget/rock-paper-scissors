@@ -45,7 +45,7 @@ function playRound(playerSelection, computerSelection) {
         return "tie";
     }
 
-    // Check if computer choice matches the key value of playerSelection (key beats value)
+    // Check if computer choice matches the key value of the player choice in winnerLoserDict (key beats value)
     if (computerSelection == winnerLoserDict[playerSelection]) {
         return "win";
     }
