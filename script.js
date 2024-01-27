@@ -1,7 +1,5 @@
-
 // Create dictionary that determines winning choices (key beats value)
 const winnerLoserDict = {rock: "scissors", scissors: "paper", paper: "rock"};
-getComputerChoice();
 
 function getComputerChoice() {
     // Randomly returns either "rock", "paper" or "scissors"
@@ -11,7 +9,7 @@ function getComputerChoice() {
     
     // Loop through winnerLoserDict keys and keep track of an index
     // Return key ("rock", "paper" or "scissors") when index is equal to randomNum
-    let index = 1
+    let index = 1;
     for (key in winnerLoserDict) {
         if (index == randomNum) {
             return key;
@@ -22,8 +20,21 @@ function getComputerChoice() {
 
 function getPlayerChoice() {
     // Prompt user for 3 possible choices (rock, paper or scissors)
-    // Convert choice to lowercase
-    // Prompt again if choice is invalid
+    // Continue to prompt if choice not in dictionary (invalid choice)
+    let playerChoice;
+    for (let i = 0; !(playerChoice in winnerLoserDict); i++) {
+        if (i > 0) {
+            console.log("Invalid choice!");
+        }
+        playerChoice = prompt("Rock, Paper or Scissors?");
+
+        // Randomly assign player choice if option is null
+        if (playerChoice === null) {
+            playerChoice = getComputerChoice();
+        }
+    
+        return playerChoice.toLowerCase();
+    }
 }
 
 function playRound(playerSelection, computerSelection) {
