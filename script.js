@@ -72,7 +72,7 @@ function game() {
             case "tie":
                 console.log("It's a tie this round!");
         }
-        console.log(`Player Score: ${playerScore} | Computer Score: ${computerScore}`);
+        console.log(`Player Score: ${playerScore} | Computer Score: ${computerScore}\n\n`);
     }
 
     if (playerScore > computerScore) {
