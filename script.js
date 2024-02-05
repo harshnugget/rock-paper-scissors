@@ -1,8 +1,86 @@
+// Populate array of choices
+const choicesContainer = document.querySelector(".choices-container");
+const childElementsWithImg = choicesContainer.querySelectorAll(":scope > div:has(img)");
+choicesArray =[];
+for (let i = 0; i < childElementsWithImg.length; i++) {
+    choicesArray[i] = childElementsWithImg[i];
+}
+console.log(choicesArray);
+
+// Initialize positions of choices [left, middle-front, right, middle-back]
+let positions = [-150, 0, 150, 0];
+
+updatePositions();
+
+function updatePositions(direction) {
+    if (direction == "right") {
+        // Shift all choices one position to the right
+        let lastIndex = choicesArray.pop();
+        choicesArray.unshift(lastIndex);
+        // Enable transition effect
+        document.querySelector(".choices-container").classList.add("choices-transition");
+    } 
+    if (direction == "left") {
+        // Shift all choices one position to the left
+        let firstIndex = choicesArray.shift();
+        choicesArray.push(firstIndex); 
+        // Enable transition effect
+        document.querySelector(".choices-container").classList.add("choices-transition");
+    }
+    for (let index = 0; index < choicesArray.length; index++) {
+        // Re-position choices
+        if (index > positions.length) {
+            // Queue choices at position 3 (back of the queue, behind position 1)
+            choicesArray[index].style.transform = `translateX(${positions[3]}px)`;
+        }
+        else {
+            let sizeFactor; // Resizes choices depending on their position
+            let zIndex;
+            switch (index) {
+                case 1:
+                    sizeFactor = 1.5;
+                    zIndex = 3;
+                    break;
+                case 3:
+                    sizeFactor = 0.5;
+                    zIndex = 1;
+                    break;
+                default:
+                    sizeFactor = 1;
+                    zIndex = 2;
+            }
+            choicesArray[index].style.transform = `translateX(${positions[index]}px) scale(${sizeFactor})`;
+            choicesArray[index].style.zIndex = `${zIndex}`;
+        }
+    }
+};
+
+// Determine which direction to shuffle choices
+window.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowRight") {
+        updatePositions("right");
+    }
+    if (e.key === "ArrowLeft") {
+        updatePositions("left");
+    }
+});
+
 // Add event listener to div containing choice buttons
 // Track which option is clicked and save as playerChoice
 let playerChoice;
 
 document.querySelector("#choices").addEventListener("click", function(event) {
+    // Check if left or right buttons were selected
+    if (event.target.id == "left-button" || event.target.id == "right-button") {
+        if (event.target.id == "left-button") {
+            updatePositions("left");
+        }
+        else {
+            updatePositions("right");
+        }
+        return;
+    }
+
     // Check if an option was selected
     if (!(event.target.matches("#rock-btn, #scissors-btn, #paper-btn"))) {
         return;
@@ -112,7 +190,10 @@ function game() {
     console.log(`Player Score: ${playerScore} | Computer Score: ${computerScore}\n\n`);
     document.getElementById("player-score").textContent = `Player Score: ${playerScore}`
     document.getElementById("computer-score").textContent = `Computer Score: ${computerScore}`
-    document.getElementById(playerChoice + "-btn").style.backgroundColor = "";  // Reset button color
+    if (playerChoice) {
+        document.getElementById(playerChoice + "-btn").style.backgroundColor = "";  // Reset button color
+
+    }
 
     // Declare game winner
     if (playerScore == 5 || computerScore == 5) {

@@ -1,5 +1,8 @@
+* {
+box-sizing: border-box;
+}
+
 body {
-    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     min-height: 100vh; /* Ensure the body fills full viewport height */
@@ -13,7 +16,7 @@ body {
     border-style: solid;
 }
 
-.choices-container {
+ .choices-container {
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -24,13 +27,27 @@ body {
 }
 
 .choices-container > div {
+    position: absolute;
     display: flex;
     flex-direction: column;
     justify-content: center;
     width: 100px;
     height: 100px;
-    margin: 20px;
+    margin: 0;
     border-style: solid;
+    transition: inherit;
+}
+
+.choices-container > #right-button {
+    margin-left: auto;
+}
+
+.choices-container > #left-button {
+    margin-right: auto;
+}
+
+.choices-transition {
+    transition: 200ms linear
 }
 
 .play-btn-container {
