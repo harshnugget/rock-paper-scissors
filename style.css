@@ -1,0 +1,68 @@
+body {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure the body fills full viewport height */
+    margin: 0;
+}
+
+.scores {
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+    border-style: solid;
+}
+
+.choices-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-style: solid;
+    width: 700px;
+    height: 250px;
+    margin: 0 auto;
+}
+
+.choices-container > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    margin: 20px;
+    border-style: solid;
+}
+
+.play-btn-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 20px auto;
+    border-style: solid;
+}
+
+.round-info {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    border-style: solid;
+}
+
+.round-info > p {
+    margin: 0;
+    padding: 0;
+}
+
+.animation-container {
+    border-style: solid;
+    margin: 0 auto;
+    width: 700px;
+    height: 350px;
+}
+
+.footer {
+    display: flex;
+    border-style: solid;
+    margin-top: auto;
+    justify-content: center;
+}

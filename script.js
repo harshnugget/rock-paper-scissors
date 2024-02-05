@@ -1,22 +1,22 @@
 // Add event listener to div containing choice buttons
-// Track which button is clicked and save as playerChoice
+// Track which option is clicked and save as playerChoice
 let playerChoice;
-let choicesContainer = document.querySelector("#choices");
 
-choicesContainer.addEventListener("click", function(event) {
-    // Check if a choice button was selected
+document.querySelector("#choices").addEventListener("click", function(event) {
+    // Check if an option was selected
     if (!(event.target.matches("#rock-btn, #scissors-btn, #paper-btn"))) {
         return;
     }
-    
-    // Reset color of choice buttons to default value
-    for (let i = 0; i < choicesContainer.children.length; i++) {
-        if (event.target == choicesContainer.children[i])
+ 
+    // Reset options to default color values
+    for (value of ["rock", "paper", "scissors"]) {
+        if (event.target.id == value + "-btn") {
             continue;
-        choicesContainer.children[i].style.backgroundColor = "";
-    };
+        }
+        document.getElementById(value + "-btn").style.backgroundColor = "";
+    }
 
-    // Changes choice button color
+    // Changes option color
     // Resets color and playerChoice if clicked again
     if (!(event.target.style.backgroundColor == "")) {
         event.target.style.backgroundColor = "";
@@ -61,7 +61,7 @@ function getComputerChoice() {
 function playRound(playerSelection, computerSelection) {
     // Display choices
     console.log(`Player: ${playerSelection} | Computer: ${computerSelection}`);
-    roundInfoChoices.textContent = `You chose ${playerSelection}. Computer chose ${computerSelection}.`;
+    document.querySelector("#round-choices").textContent = `You chose ${playerSelection}. Computer chose ${computerSelection}.`;
 
     if (playerSelection == computerSelection) {
         return "tie";
@@ -78,22 +78,17 @@ function playRound(playerSelection, computerSelection) {
 let playerScore = 0;
 let computerScore = 0;
 
-// Create textual elements for displaying round information / scores
-let roundInfoChoices = document.createElement("p");
-let roundInfoStatus = document.createElement("p");
-let roundInfoScore = document.createElement("p");
-document.querySelector("#round-info").appendChild(roundInfoChoices);
-document.querySelector("#round-info").appendChild(roundInfoStatus);
-document.querySelector("#round-info").appendChild(roundInfoScore);
-
 function game() {
     let result;
 
-    roundInfoStatus.style.display = "inline"
+    // Reset textual displays
+    document.querySelector("#round-status").textContent = "";
+    document.querySelector("#round-choices").textContent = "";
+    document.querySelector(".round-info").style.display = "flex";
 
     // Replay rounds until a player reaches a score of 5
     if (!(playerChoice)) {
-        roundInfoChoices.textContent = `No choice selected!`;
+        document.querySelector("#round-choices").textContent = `No choice selected!`;
         console.log("No choice selected");
         return;
     };
@@ -101,39 +96,49 @@ function game() {
     switch (result) {
         case "win":
             console.log("You won this round!");
-            roundInfoStatus.textContent = "You won this round!";
+            document.querySelector("#round-status").textContent = "You won this round!";
             playerScore++;
             break;
         case "lose":
             console.log("You lose this round!");
-            roundInfoStatus.textContent = "You lose this round!";
+            document.querySelector("#round-status").textContent = "You lose this round!";
             computerScore++;
             break;
         case "tie":
             console.log("It's a tie this round!");
-            roundInfoStatus.textContent = "It's a tie this round!";
+            document.querySelector("#round-status").textContent ="It's a tie this round!";
     }
     playerChoice = "";  // Reset player choice after every round
-    roundInfoScore.textContent = `Player Score: ${playerScore} | Computer Score: ${computerScore}`;
     console.log(`Player Score: ${playerScore} | Computer Score: ${computerScore}\n\n`);
-    
-    // Reset the color of choice buttons to default value
-    for (let i = 0; i < choicesContainer.children.length; i++) {
-        choicesContainer.children[i].style.backgroundColor = "";
-    };
+    document.getElementById("player-score").textContent = `Player Score: ${playerScore}`
+    document.getElementById("computer-score").textContent = `Computer Score: ${computerScore}`
+    document.getElementById(playerChoice + "-btn").style.backgroundColor = "";  // Reset button color
 
-    if (playerScore == 5) {
+    // Declare game winner
+    if (playerScore == 5 || computerScore == 5) {
         playerScore = 0;
         computerScore = 0;
-        roundInfoStatus.style.display = "none"
-        roundInfoScore.textContent = "YOU WIN!";
-        return "YOU WIN!\n\n";
-    } 
-    if (computerScore == 5) {
-        playerScore = 0;
-        computerScore = 0;
-        roundInfoStatus.style.display = "none"
-        roundInfoScore.textContent = "YOU LOSE!";
-        return "YOU LOSE!\n\n";
+        document.querySelector("#round-status").textContent = "";
+        if (playerScore == 5) {
+            document.querySelector("#round-status").textContent = "YOU WIN!";
+            return "YOU WIN!\n\n";
+        } 
+        else {
+            document.querySelector("#round-status").textContent = "YOU LOSE!";
+            return "YOU LOSE!\n\n";
+        }
     }
+}
+
+// Reset scores, textual displays and colors
+function reset() {
+    playerScore = 0;
+    computerScore = 0;
+    document.getElementById("player-score").textContent = `Player Score: ${playerScore}`
+    document.getElementById("computer-score").textContent = `Computer Score: ${computerScore}`
+    document.querySelector("#round-status").textContent = "";
+    document.querySelector("#round-choices").textContent = "";
+    document.querySelector(".round-info").style.display = "none";
+    if (playerChoice)
+        document.getElementById(playerChoice + "-btn").style.backgroundColor = "";  // Reset button color
 }

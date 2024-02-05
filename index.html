@@ -9,13 +9,43 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <div id="choices">
-            <button id="rock-btn">ROCK</button>
-            <button id="paper-btn">PAPER</button>
-            <button id="scissors-btn">SCISSORS</button>
+        <div class="header">
+            <h1>ROCK, PAPER, SCISSORS!</h1>
         </div>
-        <button id="play-btn" onclick="console.log(game())">PLAY</button>        
-        <div id="round-info"></div>
+        <div class="scores">
+            <h2 id="player-score">Player Score: 0</h2>
+            <h2 id="computer-score">Computer Score: 0</h2>
+        </div>
+        <div id="choices" class="choices-container">
+            <div>
+                <img src="" alt="Rock">
+                <button id="rock-btn">ROCK</button>
+            </div>
+            
+            <div>
+                <img src="" alt="Paper">
+                <button id="paper-btn">PAPER</button>
+            </div>
+            
+            <div>
+                <img src="" alt="Scissors">
+                <button id="scissors-btn">SCISSORS</button>
+            </div>
+        </div>
+        <div class="play-btn-container">
+            <button id="play-btn" onclick="console.log(game())">GO</button>
+            <button id="reset-btn" onclick="console.log(reset())">RESET</button>
+        </div>
+        <div class="animation-container">
+            <div class="round-info">
+                <p id="round-choices"></p>
+                <p id="round-status"></p>
+            </div>
+            <div id="animation"></div>
+        </div>
+        <div class="footer">
+            <p>Footer</p>
+        </div>
         <script src="script.js"></script>
     </body>
 </html>
