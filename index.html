@@ -19,29 +19,33 @@
         <div id="choices" class="choices-container">
             <div id="rock-container">
                 <img src="" alt="Rock">
-                <button id="rock-btn">ROCK</button>
             </div>
             <div id="paper-container">
                 <img src="" alt="Paper">
-                <button id="paper-btn">PAPER</button>
             </div>
             <div id="scissors-container">
                 <img src="" alt="Scissors">
-                <button id="scissors-btn">SCISSORS</button>
             </div>
             <button id="left-button"><==</button>
             <button id="right-button">==></button>
         </div>
         <div class="play-btn-container">
-            <button id="play-btn" onclick="console.log(game())">GO</button>
+            <button id="play-btn">GO</button>
             <button id="reset-btn" onclick="console.log(reset())">RESET</button>
         </div>
         <div class="animation-container">
-            <div class="round-info">
+            <div id="round-info">
                 <p id="round-choices"></p>
                 <p id="round-status"></p>
             </div>
-            <div id="animation"></div>
+            <div id="hands-container">
+                <div id="left-hand" class="hands">
+                    <p></p>
+                </div>
+                <div id="right-hand" class="hands">
+                    <p></p>
+                </div>
+            </div>
         </div>
         <div class="footer">
             <p>Footer</p>

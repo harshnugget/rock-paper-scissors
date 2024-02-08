@@ -58,23 +58,67 @@ body {
     border-style: solid;
 }
 
-.round-info {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    border-style: solid;
-}
-
-.round-info > p {
-    margin: 0;
-    padding: 0;
-}
-
 .animation-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
     border-style: solid;
     margin: 0 auto;
     width: 700px;
     height: 350px;
+    overflow: hidden;
+}
+
+#round-info {
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    border-style: solid;
+    width: 100%;
+    z-index: 1;
+}
+
+#round-info > p {
+    margin: 0;
+    padding: 0;
+}
+
+#hands-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1;
+}
+
+.hands {
+    width: 280px;
+    height: 150px;
+    border-style: solid;
+}
+
+@keyframes leftHandAnimation {
+    0%, 100% {
+        transform: rotate(0);
+    }
+    33.33% {
+        transform: rotate(-15deg);
+    }
+    66.66% {
+        transform: rotate(15deg);
+    }
+}
+
+@keyframes rightHandAnimation {
+    0%, 100% {
+        transform: rotate(0);
+    }
+    33.33% {
+        transform: rotate(15deg);
+    }
+    66.66% {
+        transform: rotate(-15deg);
+    }
 }
 
 .footer {

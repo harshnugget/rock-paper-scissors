@@ -1,13 +1,12 @@
 // Populate array of choices
 const choicesContainer = document.querySelector(".choices-container");
 const childElementsWithImg = choicesContainer.querySelectorAll(":scope > div:has(img)");
-choicesArray =[];
+const choicesArray = [];
 for (let i = 0; i < childElementsWithImg.length; i++) {
     choicesArray[i] = childElementsWithImg[i];
 }
-console.log(choicesArray);
 
-// Initialize positions of choices [left, middle-front, right, middle-back]
+// Initialize X coordinates of choices [left, middle-front, right, middle-back]
 let positions = [-150, 0, 150, 0];
 
 updatePositions();
@@ -29,23 +28,23 @@ function updatePositions(direction) {
     }
     for (let index = 0; index < choicesArray.length; index++) {
         // Re-position choices
-        if (index > positions.length) {
-            // Queue choices at position 3 (back of the queue, behind position 1)
+        if (index >= positions.length-1) {
+            // Queue choices at position 3#mid-back
             choicesArray[index].style.transform = `translateX(${positions[3]}px)`;
         }
         else {
             let sizeFactor; // Resizes choices depending on their position
-            let zIndex;
+            let zIndex; // Stacking order of choices
             switch (index) {
-                case 1:
+                case 1: // Middle-front
                     sizeFactor = 1.5;
                     zIndex = 3;
                     break;
-                case 3:
+                case 3: // Middle-back
                     sizeFactor = 0.5;
                     zIndex = 1;
                     break;
-                default:
+                default:    // Left / Right
                     sizeFactor = 1;
                     zIndex = 2;
             }
@@ -55,19 +54,10 @@ function updatePositions(direction) {
     }
 };
 
-// Determine which direction to shuffle choices
-window.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowRight") {
-        updatePositions("right");
-    }
-    if (e.key === "ArrowLeft") {
-        updatePositions("left");
-    }
-});
-
 // Add event listener to div containing choice buttons
 // Track which option is clicked and save as playerChoice
 let playerChoice;
+let computerChoice;
 
 document.querySelector("#choices").addEventListener("click", function(event) {
     // Check if left or right buttons were selected
@@ -81,42 +71,23 @@ document.querySelector("#choices").addEventListener("click", function(event) {
         return;
     }
 
-    // Check if an option was selected
-    if (!(event.target.matches("#rock-btn, #scissors-btn, #paper-btn"))) {
-        return;
-    }
- 
-    // Reset options to default color values
-    for (value of ["rock", "paper", "scissors"]) {
-        if (event.target.id == value + "-btn") {
-            continue;
+    // Check which option was selected
+    event.composedPath().forEach(element => {
+        // Shuffle selected option to middle-front
+        let choiceIndex = choicesArray.indexOf(element);
+        if (choiceIndex == 0) {
+            updatePositions("right");
         }
-        document.getElementById(value + "-btn").style.backgroundColor = "";
-    }
-
-    // Changes option color
-    // Resets color and playerChoice if clicked again
-    if (!(event.target.style.backgroundColor == "")) {
-        event.target.style.backgroundColor = "";
-        playerChoice = "";
-        return;
-    }
-    event.target.style.backgroundColor = "red";  
-
-    switch (event.target.id) {
-        case "rock-btn":
-            playerChoice = "rock";    
-            break;
-        case "paper-btn":
-            playerChoice = "paper"; 
-            break;
-        case "scissors-btn":
-            playerChoice = "scissors";  
-            break;
-    };
+        else if (choiceIndex == 2) {
+            updatePositions("left");
+        }
+        else {
+            return;
+        }
+    });
 });
 
-// Create dictionary that determines winning choices (key beats value)
+// Create dictionary that determines win/lose (key beats value)
 const winnerLoserDict = {rock: "scissors", scissors: "paper", paper: "rock"};
 
 // Randomly select "rock", "paper" or "scissors" for computer choice
@@ -137,6 +108,14 @@ function getComputerChoice() {
 
 // Determine a round winner
 function playRound(playerSelection, computerSelection) {
+
+    computerChoice = computerSelection;
+
+    // Check for invalid selections
+    if (!(playerSelection in winnerLoserDict)) {
+        console.log(`Error: "${playerSelection}" is not a valid option.`);
+        return;
+    }
     // Display choices
     console.log(`Player: ${playerSelection} | Computer: ${computerSelection}`);
     document.querySelector("#round-choices").textContent = `You chose ${playerSelection}. Computer chose ${computerSelection}.`;
@@ -152,6 +131,52 @@ function playRound(playerSelection, computerSelection) {
     return "lose"
 }
 
+// Play button event listener
+const playButton = document.querySelector("#play-btn");
+const leftHand = document.querySelector("#left-hand");
+const rightHand = document.querySelector("#right-hand");
+
+playButton.addEventListener("click", () => {
+
+    // Reset choices and info
+    playerChoice = "";
+    computerChoice = "";
+    leftHand.getElementsByTagName("p")[0].textContent = "";
+    rightHand.getElementsByTagName("p")[0].textContent = "";
+    document.querySelector("#round-info").style.display = "";
+
+    if (!leftHand.style.animation) {
+        leftHand.style.animation = 'leftHandAnimation 0.5s linear 3';
+        rightHand.style.animation = 'rightHandAnimation 0.5s linear 3';
+        playButton.disabled = true;
+    }
+
+    // Wait for animations to finish
+    leftHand.addEventListener('animationend', () => {
+        leftHand.style.animation = ''; // Reset the animation property
+        rightHand.style.animation = '';
+        playButton.disabled = false;
+
+        // Change left hand to player choice
+        leftHand.getElementsByTagName("p")[0].textContent = `${playerChoice}`;
+
+        // Change right hand to computer choice
+        rightHand.getElementsByTagName("p")[0].textContent = `${computerChoice}`;
+
+        // Display round info
+        document.querySelector("#round-info").style.display = "flex";
+
+        // Update scores
+        console.log(`Player Score: ${playerScore} | Computer Score: ${computerScore}\n\n`);
+        document.getElementById("player-score").textContent = `Player Score: ${playerScore}`;
+        document.getElementById("computer-score").textContent = `Computer Score: ${computerScore}`;
+    });
+
+    // Play the game
+    game();
+
+})
+
 // Variables for tracking scores
 let playerScore = 0;
 let computerScore = 0;
@@ -162,14 +187,28 @@ function game() {
     // Reset textual displays
     document.querySelector("#round-status").textContent = "";
     document.querySelector("#round-choices").textContent = "";
-    document.querySelector(".round-info").style.display = "flex";
 
-    // Replay rounds until a player reaches a score of 5
+    // Set middle-front option to players choices
+    switch (choicesArray[1].id) {
+        case "rock-container":
+            playerChoice = "rock";
+            break;
+        case "paper-container":
+            playerChoice = "paper";
+            break;
+        case "scissors-container":
+            playerChoice = "scissors";
+            break;
+    }
+
+    // Handle invalid choices
     if (!(playerChoice)) {
         document.querySelector("#round-choices").textContent = `No choice selected!`;
         console.log("No choice selected");
         return;
     };
+
+    // Replay rounds until a score of 5 is reached
     result = playRound(playerChoice, getComputerChoice());
     switch (result) {
         case "win":
@@ -185,14 +224,6 @@ function game() {
         case "tie":
             console.log("It's a tie this round!");
             document.querySelector("#round-status").textContent ="It's a tie this round!";
-    }
-    playerChoice = "";  // Reset player choice after every round
-    console.log(`Player Score: ${playerScore} | Computer Score: ${computerScore}\n\n`);
-    document.getElementById("player-score").textContent = `Player Score: ${playerScore}`
-    document.getElementById("computer-score").textContent = `Computer Score: ${computerScore}`
-    if (playerChoice) {
-        document.getElementById(playerChoice + "-btn").style.backgroundColor = "";  // Reset button color
-
     }
 
     // Declare game winner
@@ -219,7 +250,10 @@ function reset() {
     document.getElementById("computer-score").textContent = `Computer Score: ${computerScore}`
     document.querySelector("#round-status").textContent = "";
     document.querySelector("#round-choices").textContent = "";
-    document.querySelector(".round-info").style.display = "none";
+    document.querySelector("#round-info").style.display = "none";
     if (playerChoice)
         document.getElementById(playerChoice + "-btn").style.backgroundColor = "";  // Reset button color
+    leftHand.style.animation = ''; // Reset the animation property
+    rightHand.style.animation = '';
+    playButton.disabled = false;
 }
