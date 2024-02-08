@@ -251,8 +251,6 @@ function reset() {
     document.querySelector("#round-status").textContent = "";
     document.querySelector("#round-choices").textContent = "";
     document.querySelector("#round-info").style.display = "none";
-    if (playerChoice)
-        document.getElementById(playerChoice + "-btn").style.backgroundColor = "";  // Reset button color
     leftHand.style.animation = ''; // Reset the animation property
     rightHand.style.animation = '';
     playButton.disabled = false;
