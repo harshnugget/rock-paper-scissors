@@ -7,26 +7,37 @@ body {
     flex-direction: column;
     min-height: 100vh; /* Ensure the body fills full viewport height */
     margin: 0;
+    background-color: rgb(243, 252, 255);
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0 0 20px;
+    background-color: rgb(163, 226, 255);
+    color: rgb(216, 72, 72);
+    font-size: 30px;
 }
 
 .scores {
     display: flex;
     justify-content: center;
     gap: 100px;
-    border-style: solid;
+    background-color: rgb(205, 239, 255);
+    color: rgb(216, 72, 72);
+    margin-bottom: 20px;
 }
 
  .choices-container {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    border-style: solid;
-    width: 700px;
-    height: 250px;
+    width: 100%;
+    height: 150px;
     margin: 0 auto;
 }
 
-.choices-container > div {
+.choices-container > .choice {
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -38,12 +49,16 @@ body {
     transition: inherit;
 }
 
-.choices-container > #right-button {
-    margin-left: auto;
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    min-width: 520px;
 }
 
-.choices-container > #left-button {
-    margin-right: auto;
+#right-button {
+}
+
+#left-button {
 }
 
 .choices-transition {
@@ -63,18 +78,22 @@ body {
     display: flex;
     flex-direction: column;
     border-style: solid;
+    border-color: rgb(214, 230, 241);
+    border-width: 5px;
+    border-radius: 40px;
     margin: 0 auto;
     width: 700px;
     height: 350px;
     overflow: hidden;
+    background-color: rgb(255, 255, 255);
 }
 
 #round-info {
     position: absolute;
     display: none;
+    background-color: rgb(147, 171, 194);
     flex-direction: column;
     align-items: center;
-    border-style: solid;
     width: 100%;
     z-index: 1;
 }
@@ -123,7 +142,8 @@ body {
 
 .footer {
     display: flex;
-    border-style: solid;
-    margin-top: auto;
+    margin-top: 30px;
     justify-content: center;
+    padding: 10px 0;
+    background-color: rgb(163, 226, 255);
 }

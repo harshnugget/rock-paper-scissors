@@ -184,6 +184,13 @@ let computerScore = 0;
 function game() {
     let result;
 
+    if (playerScore == 5 || computerScore == 5) {
+        playerScore = 0;
+        computerScore = 0;
+        document.getElementById("player-score").textContent = `Player Score: ${playerScore}`;
+        document.getElementById("computer-score").textContent = `Computer Score: ${computerScore}`;
+    }
+
     // Reset textual displays
     document.querySelector("#round-status").textContent = "";
     document.querySelector("#round-choices").textContent = "";
@@ -228,8 +235,6 @@ function game() {
 
     // Declare game winner
     if (playerScore == 5 || computerScore == 5) {
-        playerScore = 0;
-        computerScore = 0;
         document.querySelector("#round-status").textContent = "";
         if (playerScore == 5) {
             document.querySelector("#round-status").textContent = "YOU WIN!";
