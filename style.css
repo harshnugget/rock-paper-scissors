@@ -141,11 +141,14 @@ body {
     }
 }
 
+.footer-separator {
+    flex: 1;
+}
+
 .footer {
     display: flex;
     margin-top: 30px;
     justify-content: center;
     padding: 10px 0;
     background-color: rgb(163, 226, 255);
-    margin-top: auto;
 }
