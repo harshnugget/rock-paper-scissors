@@ -7,7 +7,7 @@ body {
     flex-direction: column;
     min-height: 100vh; /* Ensure the body fills full viewport height */
     margin: 0;
-    background-color: rgb(243, 252, 255);
+    background-color: rgb(255, 249, 243);
 }
 
 .header {
