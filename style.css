@@ -34,6 +34,10 @@ body {
     font-size: large;
 }
 
+.scores h2 {
+    margin: 15px;
+}
+
  .choices-container {
     display: flex;
     justify-content: space-around;
@@ -125,6 +129,10 @@ body {
     background-color: rgb(65, 230, 60);
 }
 
+#play-btn:disabled {
+    pointer-events: none;
+}
+
 #reset-btn {
     background-color: rgb(255, 100, 114);
 }
@@ -140,7 +148,7 @@ body {
     border-style: solid;
     border-color: rgb(214, 230, 241);
     border-width: 5px;
-    border-radius: 40px;
+    border-radius: 20px;
     margin: 0 auto;
     width: 700px;
     height: 350px;
