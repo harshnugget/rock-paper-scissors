@@ -117,12 +117,20 @@ body {
     font-size: 18px;
     font-family: Gaegu, sans-serif;
     font-weight: 700;
-    width: 200px;
+    border-width: 4px;
+    border-color: rgb(0, 0, 0, 0.5);
     cursor: pointer;
 }
 
 #play-btn {
+    display: flex;
     background-color: rgb(100, 255, 114);
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    font-size: 28px;
+    justify-content: center;
+    align-items: center;
 }
 
 #play-btn:hover {
@@ -134,6 +142,7 @@ body {
 }
 
 #reset-btn {
+    border-radius: 8px;
     background-color: rgb(255, 100, 114);
 }
 
