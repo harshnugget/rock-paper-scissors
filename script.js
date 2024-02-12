@@ -161,7 +161,9 @@ playButton.addEventListener("click", () => {
     leftHand.addEventListener('animationend', () => {
         leftHand.style.animation = ''; // Reset the animation property
         rightHand.style.animation = '';
-        playButton.disabled = false;
+        if (!(playerScore == 5 || computerScore == 5)) {
+            playButton.disabled = false;
+        };
 
         // Change left hand to player choice
         leftHand.getElementsByTagName("img")[0].src = `images/${playerChoice}.svg`;
