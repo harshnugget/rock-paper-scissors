@@ -163,6 +163,7 @@ playButton.addEventListener("click", () => {
 
         // Display round info
         document.querySelector("#round-info").style.display = "flex";
+        document.querySelector("#round-info").style.animation = "slideDownAnimation 0.2s linear";
 
         // Update scores
         console.log(`Player Score: ${playerScore} | Computer Score: ${computerScore}\n\n`);
@@ -217,8 +218,8 @@ function game() {
     result = playRound(playerChoice, getComputerChoice());
     switch (result) {
         case "win":
-            console.log("You won this round!");
-            document.querySelector("#round-status").textContent = "You won this round!";
+            console.log("You win this round!");
+            document.querySelector("#round-status").textContent = "You win this round!";
             playerScore++;
             break;
         case "lose":
