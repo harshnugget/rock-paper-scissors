@@ -2,7 +2,7 @@
 const choicesContainer = document.querySelector(".choices-container");
 const choicesArray = Array.from(choicesContainer.querySelectorAll(":scope > div:has(img)"));
 
-// Set starting positions of carosel elements
+// Set starting positions of carousel elements
 updatePositions();
 
 function updatePositions(direction) {
@@ -130,7 +130,7 @@ function playRound(playerSelection, computerSelection) {
     return "lose"
 }
 
-// Eveent listeners for when play button is clicked
+// Event listeners for when play button is clicked
 const playButton = document.querySelector("#play-btn");
 const leftHand = document.querySelector("#left-hand");
 const rightHand = document.querySelector("#right-hand");
