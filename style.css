@@ -10,7 +10,7 @@ body {
     flex-direction: column;
     min-height: 100vh; /* Ensure the body fills full viewport height */
     margin: 0;
-    background-color: rgb(255, 249, 243);
+    background-color: rgb(244, 255, 253);
     font-family: Gaegu, sans-serif;
 }
 
@@ -111,6 +111,7 @@ body {
     align-items: center;
     margin: 20px auto;
     gap: 8px;
+    user-select: none;
 }
 
 .play-btn-container > button {
@@ -118,6 +119,7 @@ body {
     font-family: Gaegu, sans-serif;
     font-weight: 700;
     border-width: 4px;
+    border-style: double;
     border-color: rgb(0, 0, 0, 0.5);
     cursor: pointer;
 }
@@ -154,7 +156,7 @@ body {
     position: relative;
     display: flex;
     flex-direction: column;
-    border-style: solid;
+    border-style: double;
     border-color: rgb(214, 230, 241);
     border-width: 5px;
     border-radius: 20px;
