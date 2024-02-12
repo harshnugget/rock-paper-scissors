@@ -70,7 +70,7 @@ document.querySelector("#choices").addEventListener("click", function(event) {
         }
         return;
     }
-
+    
     // Check which option was selected
     event.composedPath().forEach(element => {
         // Shuffle selected option to middle-front
@@ -141,8 +141,6 @@ playButton.addEventListener("click", () => {
     // Reset choices and info
     playerChoice = "";
     computerChoice = "";
-    leftHand.getElementsByTagName("p")[0].textContent = "";
-    rightHand.getElementsByTagName("p")[0].textContent = "";
     document.querySelector("#round-info").style.display = "";
 
     if (!leftHand.style.animation) {
@@ -158,10 +156,10 @@ playButton.addEventListener("click", () => {
         playButton.disabled = false;
 
         // Change left hand to player choice
-        leftHand.getElementsByTagName("p")[0].textContent = `${playerChoice}`;
+        leftHand.getElementsByTagName("img")[0].src = `images/${playerChoice}.svg`;
 
         // Change right hand to computer choice
-        rightHand.getElementsByTagName("p")[0].textContent = `${computerChoice}`;
+        rightHand.getElementsByTagName("img")[0].src = `images/${computerChoice}.svg`;
 
         // Display round info
         document.querySelector("#round-info").style.display = "flex";
@@ -191,9 +189,9 @@ function game() {
         document.getElementById("computer-score").textContent = `Computer Score: ${computerScore}`;
     }
 
-    // Reset textual displays
-    document.querySelector("#round-status").textContent = "";
-    document.querySelector("#round-choices").textContent = "";
+    // Reset image displays
+    leftHand.getElementsByTagName("img")[0].src = "images/rock.svg";
+    rightHand.getElementsByTagName("img")[0].src = "images/rock.svg";
 
     // Set middle-front option to players choices
     switch (choicesArray[1].id) {
@@ -256,6 +254,8 @@ function reset() {
     document.querySelector("#round-status").textContent = "";
     document.querySelector("#round-choices").textContent = "";
     document.querySelector("#round-info").style.display = "none";
+    leftHand.getElementsByTagName("img")[0].src = "images/rock.svg";
+    rightHand.getElementsByTagName("img")[0].src = "images/rock.svg";
     leftHand.style.animation = ''; // Reset the animation property
     rightHand.style.animation = '';
     playButton.disabled = false;
