@@ -1,46 +1,46 @@
 // Populate array of choices
 const choicesContainer = document.querySelector(".choices-container");
-const childElementsWithImg = choicesContainer.querySelectorAll(":scope > div:has(img)");
-const choicesArray = [];
-for (let i = 0; i < childElementsWithImg.length; i++) {
-    choicesArray[i] = childElementsWithImg[i];
-}
+const choicesArray = Array.from(choicesContainer.querySelectorAll(":scope > div:has(img)"));
 
-// Initialize X coordinates of choices [left, middle-front, right, middle-back]
-let positions = [-150, 0, 150, 0];
-
+// Set starting positions of carosel elements
 updatePositions();
 
 function updatePositions(direction) {
-    if (direction == "right") {
-        // Shift all choices one position to the right
-        let lastIndex = choicesArray.pop();
-        choicesArray.unshift(lastIndex);
-        // Enable transition effect
-        document.querySelector(".choices-container").classList.add("choices-transition");
-    } 
-    if (direction == "left") {
-        // Shift all choices one position to the left
-        let firstIndex = choicesArray.shift();
-        choicesArray.push(firstIndex); 
-        // Enable transition effect
-        document.querySelector(".choices-container").classList.add("choices-transition");
+    // Initialize X coordinates of choices [left, middle-front, right, middle-back]
+    const positions = [-150, 0, 150, 0];
+
+    switch (direction) {
+        case "right":
+            // Shift all choices one position to the right
+            let lastIndex = choicesArray.pop();
+            choicesArray.unshift(lastIndex);
+            // Enable transition effect
+            choicesContainer.classList.add("choices-transition");
+            break;
+        case "left":
+            // Shift all choices one position to the left
+            let firstIndex = choicesArray.shift();
+            choicesArray.push(firstIndex);
+            // Enable transition effect
+            choicesContainer.classList.add("choices-transition");
+            break; 
     }
+
+    // Re-position choices
     for (let index = 0; index < choicesArray.length; index++) {
-        // Re-position choices
         if (index >= positions.length-1) {
-            // Queue choices at position 3#mid-back
+            // Queue choices at position 3 #mid-back
             choicesArray[index].style.transform = `translateX(${positions[3]}px)`;
         }
         else {
             let sizeFactor; // Resizes choices depending on their position
             let zIndex; // Stacking order of choices
             switch (index) {
-                case 1: // Middle-front
+                case 1: // Mid-front (the selected choice)
                     sizeFactor = 1.5;
                     zIndex = 3;
                     break;
-                case 3: // Middle-back
+                case 3: // Mid-back (hidden elements)
                     sizeFactor = 0.5;
                     zIndex = 1;
                     break;
@@ -54,30 +54,16 @@ function updatePositions(direction) {
     }
 };
 
-// Add event listener to div containing choice buttons
-// Track which option is clicked and save as playerChoice
+// Track which choice is currently selected and save as playerChoice
 let playerChoice;
 let computerChoice;
 
-document.querySelector("#choices").addEventListener("click", function(event) {
-    // Check if left or right buttons were selected
+choicesContainer.addEventListener("click", function(event) {
+    // Check if left or right directional buttons were selected
     if (event.target.id == "left-button" || event.target.id == "right-button") {
-        if (event.target.id == "left-button") {
-            updatePositions("left");
-        }
-        else {
-            updatePositions("right");
-        }
+        event.target.id == "left-button" ? updatePositions("left") : updatePositions("right");
         return;
     }
-
-    // Deselect hover state when mouse is not hovered over element
-    event.target.style.filter = "none";
-    event.target.addEventListener("mouseout", () => {
-        event.target.style.filter = "";
-        event.target.removeEventListener;
-    });
-
     
     // Check which option was selected
     event.composedPath().forEach(element => {
@@ -86,12 +72,16 @@ document.querySelector("#choices").addEventListener("click", function(event) {
         if (choiceIndex == 0) {
             updatePositions("right");
         }
-        else if (choiceIndex == 2) {
+        if (choiceIndex == 2) {
             updatePositions("left");
         }
-        else {
-            return;
-        }
+    });
+
+    // Deselect hover state when mouse is not hovered over target
+    event.target.style.filter = "none";
+    event.target.addEventListener("mouseout", () => {
+        event.target.style.filter = "";
+        event.target.removeEventListener;
     });
 });
 
@@ -139,7 +129,7 @@ function playRound(playerSelection, computerSelection) {
     return "lose"
 }
 
-// Play button event listener
+// Eveent listeners for when play button is clicked
 const playButton = document.querySelector("#play-btn");
 const leftHand = document.querySelector("#left-hand");
 const rightHand = document.querySelector("#right-hand");
@@ -256,7 +246,7 @@ function game() {
     }
 }
 
-// Reset scores, textual displays and colors
+// Reset everything to initial state
 function reset() {
     playerScore = 0;
     computerScore = 0;
