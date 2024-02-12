@@ -79,9 +79,10 @@ choicesContainer.addEventListener("click", function(event) {
 
     // Deselect hover state when mouse is not hovered over target
     event.target.style.filter = "none";
-    event.target.addEventListener("mouseout", () => {
-        event.target.style.filter = "";
-        event.target.removeEventListener;
+
+    event.target.addEventListener("mouseout", function onMouseOutHandler() {
+      event.target.style.filter = "";
+      event.target.removeEventListener("mouseout", onMouseOutHandler);
     });
 });
 
@@ -135,7 +136,6 @@ const leftHand = document.querySelector("#left-hand");
 const rightHand = document.querySelector("#right-hand");
 
 playButton.addEventListener("click", () => {
-
     // Reset choices and info
     playerChoice = "";
     computerChoice = "";
@@ -148,27 +148,30 @@ playButton.addEventListener("click", () => {
     }
 
     // Wait for animations to finish
-    leftHand.addEventListener('animationend', () => {
+    leftHand.addEventListener('animationend', function onAnimationEnd() {
         leftHand.style.animation = ''; // Reset the animation property
         rightHand.style.animation = '';
         if (!(playerScore == 5 || computerScore == 5)) {
-            playButton.disabled = false;
-        };
-
+        playButton.disabled = false;
+        }
+    
         // Change left hand to player choice
         leftHand.getElementsByTagName("img")[0].src = `images/${playerChoice}.svg`;
-
+    
         // Change right hand to computer choice
         rightHand.getElementsByTagName("img")[0].src = `images/${computerChoice}.svg`;
-
+    
         // Display round info
         document.querySelector("#round-info").style.display = "flex";
         document.querySelector("#round-info").style.animation = "slideDownAnimation 0.2s linear";
-
+    
         // Update scores
         console.log(`Player Score: ${playerScore} | Computer Score: ${computerScore}\n\n`);
         document.getElementById("player-score").textContent = `Player Score: ${playerScore}`;
         document.getElementById("computer-score").textContent = `Computer Score: ${computerScore}`;
+    
+        // Remove the event listener after it's executed
+        leftHand.removeEventListener('animationend', onAnimationEnd);
     });
 
     // Play the game
@@ -245,6 +248,12 @@ function game() {
         }
     }
 }
+
+// Add event listener for reset button
+const resetButton = document.querySelector("#reset-btn");
+resetButton.addEventListener("click", () => {
+    console.log(reset());
+});
 
 // Reset everything to initial state
 function reset() {

@@ -63,9 +63,9 @@ body {
     max-width: 100%;
     max-height: 100%;
 }
-
+  
 .choice > img:hover {
-    filter: invert(42%) sepia(16%) saturate(30%) hue-rotate(336deg) brightness(102%) contrast(99%);
+    filter: invert(0%) sepia(0%) saturate(100%) hue-rotate(0deg) brightness(105%) contrast(110%);
     cursor: pointer;
 }
 
@@ -106,7 +106,7 @@ body {
 
 .play-btn-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     margin: 20px auto;
@@ -115,24 +115,23 @@ body {
 }
 
 .play-btn-container > button {
-    font-size: 18px;
+    display: flex;
+    font-size: 28px;
     font-family: Gaegu, sans-serif;
     font-weight: 700;
     border-width: 4px;
     border-style: double;
     border-color: rgb(0, 0, 0, 0.5);
-    cursor: pointer;
-}
-
-#play-btn {
-    display: flex;
-    background-color: rgb(100, 255, 114);
     border-radius: 50%;
     height: 50px;
     width: 50px;
-    font-size: 28px;
+    cursor: pointer;
     justify-content: center;
     align-items: center;
+}
+
+#play-btn {
+    background-color: rgb(100, 255, 114);
 }
 
 #play-btn:hover {
@@ -144,8 +143,8 @@ body {
 }
 
 #reset-btn {
-    border-radius: 8px;
     background-color: rgb(255, 100, 114);
+    padding-top: 5px; /* Adjust the value as needed */
 }
 
 #reset-btn:hover {
