@@ -183,7 +183,7 @@ body {
     font-weight: bold;
 }
 
-#hands-container {
+.hands-container {
     display: flex;
     justify-content: space-around;
     align-items: center;
