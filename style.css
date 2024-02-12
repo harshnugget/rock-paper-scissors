@@ -8,7 +8,7 @@ box-sizing: border-box;
 body {
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Ensure the body fills full viewport height */
+    min-height: 100vh;  /* Fill viewport height */
     margin: 0;
     background-color: rgb(244, 255, 253);
     font-family: Gaegu, sans-serif;
@@ -144,7 +144,7 @@ body {
 
 #reset-btn {
     background-color: rgb(255, 100, 114);
-    padding-top: 5px; /* Adjust the value as needed */
+    padding-top: 5px;
 }
 
 #reset-btn:hover {
@@ -169,7 +169,7 @@ body {
 #round-info {
     position: absolute;
     display: none;
-    background-color: rgba(147, 171, 194, 0.5); /* Use rgba for transparency */
+    background-color: rgba(147, 171, 194, 0.5);
     flex-direction: column;
     align-items: center;
     width: 100%;
