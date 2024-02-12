@@ -17,7 +17,7 @@ body {
 .header {
     display: flex;
     justify-content: center;
-    padding: 20px 0 0 20px;
+    padding: 20px 0 0 auto;
     background-color: rgb(163, 226, 255);
     color: rgb(216, 72, 72);
     font-size: 30px;
@@ -27,10 +27,11 @@ body {
 .scores {
     display: flex;
     justify-content: center;
-    gap: 100px;
+    gap: 150px;
     background-color: rgb(205, 239, 255);
     color: rgb(216, 72, 72);
     margin-bottom: 20px;
+    font-size: large;
 }
 
  .choices-container {
@@ -62,6 +63,10 @@ body {
 .choice > img:hover {
     filter: invert(42%) sepia(16%) saturate(30%) hue-rotate(336deg) brightness(102%) contrast(99%);
     cursor: pointer;
+}
+
+.deselect-hover {
+    filter: none;
 }
 
 .buttons {

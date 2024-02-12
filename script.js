@@ -70,6 +70,14 @@ document.querySelector("#choices").addEventListener("click", function(event) {
         }
         return;
     }
+
+    // Deselect hover state when mouse is not hovered over element
+    event.target.style.filter = "none";
+    event.target.addEventListener("mouseout", () => {
+        event.target.style.filter = "";
+        event.target.removeEventListener;
+    });
+
     
     // Check which option was selected
     event.composedPath().forEach(element => {
